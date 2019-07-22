@@ -23,6 +23,7 @@ export namespace Components {
     */
     'middle': string;
   }
+  interface MyInput {}
 }
 
 declare global {
@@ -33,8 +34,15 @@ declare global {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
+
+  interface HTMLMyInputElement extends Components.MyInput, HTMLStencilElement {}
+  var HTMLMyInputElement: {
+    prototype: HTMLMyInputElement;
+    new (): HTMLMyInputElement;
+  };
   interface HTMLElementTagNameMap {
     'my-component': HTMLMyComponentElement;
+    'my-input': HTMLMyInputElement;
   }
 }
 
@@ -53,9 +61,13 @@ declare namespace LocalJSX {
     */
     'middle'?: string;
   }
+  interface MyInput extends JSXBase.HTMLAttributes<HTMLMyInputElement> {
+    'onValueChange'?: (event: CustomEvent<number | string>) => void;
+  }
 
   interface IntrinsicElements {
     'my-component': MyComponent;
+    'my-input': MyInput;
   }
 }
 
